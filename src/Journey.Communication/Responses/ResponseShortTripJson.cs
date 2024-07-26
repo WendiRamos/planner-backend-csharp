@@ -1,4 +1,5 @@
-﻿namespace Journey.Communication.Responses;
+﻿
+namespace Journey.Communication.Responses;
 public class ResponseShortTripJson
 {
     public Guid Id { get; set; }
