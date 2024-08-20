@@ -1,5 +1,4 @@
-﻿using System.Net.Mail;
-using Journey.Communication.Responses;
+﻿using Journey.Communication.Responses;
 using Journey.Exception.ExceptionsBase;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -15,7 +14,7 @@ public class ExceptionFilter : IExceptionFilter
             var journeyException = (JourneyException)context.Exception;
             context.HttpContext.Response.StatusCode = (int)journeyException.GetStatusCode();
             var responseJson = new ResponseErrorsJson(journeyException.GetErrorMessages());
-            context.Result = new NotFoundObjectResult(responseJson);
+            context.Result = new ObjectResult(responseJson);
         }
         else
         {
