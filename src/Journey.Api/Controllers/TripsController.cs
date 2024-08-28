@@ -1,4 +1,7 @@
-﻿using Journey.Application.UseCases.Trips.Delete;
+﻿using Journey.Application.UseCases.Activities.Complete;
+using Journey.Application.UseCases.Trips.Activities.Delete;
+using Journey.Application.UseCases.Trips.Activities.Register;
+using Journey.Application.UseCases.Trips.Delete;
 using Journey.Application.UseCases.Trips.GetAll;
 using Journey.Application.UseCases.Trips.GetById;
 using Journey.Application.UseCases.Trips.Register;
@@ -68,7 +71,33 @@ namespace Journey.Api.Controllers
             [FromRoute] Guid tripId,
             [FromBody] RequestRegisterActivityJson request)
         {
-            return Created();
+            var useCase = new RegisterActivityForTripUseCase();
+            var response = useCase.Execute(tripId, request);
+            return Created(string.Empty, response);
+        }
+
+        //PUT Activity
+        [HttpPut]
+        [Route("{tripId}/activity/{activityId}/complete")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ResponseErrorsJson), StatusCodes.Status404NotFound)]
+        public IActionResult CompleteActivity([FromRoute] Guid tripId, [FromRoute] Guid activityId)
+        {
+            var useCase = new CompleteActivityForTripUseCase();
+            useCase.Execute(tripId, activityId);
+            return NoContent();
+        }
+
+        //DELETE Activity
+        [HttpPut]
+        [Route("{tripId}/activity/{activityId}/delete")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ResponseErrorsJson), StatusCodes.Status404NotFound)]
+        public IActionResult DeleteActivity([FromRoute] Guid tripId, [FromRoute] Guid activityId)
+        {
+            var useCase = new DeleteActivityForTripUseCase();
+            useCase.Execute(tripId, activityId);
+            return NoContent();
         }
     }
 }
