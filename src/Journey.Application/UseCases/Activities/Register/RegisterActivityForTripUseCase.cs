@@ -57,6 +57,7 @@ public class RegisterActivityForTripUseCase
         if (result.IsValid == false)
         {
             var errorMessages = result.Errors.Select(error => error.ErrorMessage).ToList();
+
             throw new ErrorOnValidationException(errorMessages);
         }
     }
